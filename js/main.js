@@ -13,15 +13,17 @@ const galleryImages = [
     { src: 'https://images.unsplash.com/photo-1479839672679-a455b180eda7?w=1200&h=1400&fit=crop', thumb: 'https://images.unsplash.com/photo-1479839672679-a455b180eda7?w=120&h=120&fit=crop', alt: 'Architecture' }
 ];
 
-let currentIndex = 0;
-const modal = document.getElementById('modal');
-const modalImage = document.getElementById('modalImage');
-const modalThumbnails = document.getElementById('modalThumbnails');
-const modalClose = document.getElementById('modalClose');
-const modalPrev = document.getElementById('modalPrev');
-const modalNext = document.getElementById('modalNext');
-const masonryItems = document.querySelectorAll('.masonry-item');
+// Populate gallery
+const galleryGrid = document.getElementById('galleryGrid');
+galleryImages.forEach((img, index) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `<img src="${img.src.replace('w=1200', 'w=600').replace('h=1600', 'h=800').replace('h=1800', 'h=900').replace('h=1400', 'h=700')}" alt="${img.alt}">`;
+    item.addEventListener('click', () => openModal(index));
+    galleryGrid.appendChild(item);
+});
 
+// Populate modal thumbnails
 galleryImages.forEach((img, index) => {
     const thumb = document.createElement('div');
     thumb.className = 'modal-thumb';
@@ -30,9 +32,13 @@ galleryImages.forEach((img, index) => {
     modalThumbnails.appendChild(thumb);
 });
 
-masonryItems.forEach((item, index) => {
-    item.addEventListener('click', () => openModal(index));
-});
+let currentIndex = 0;
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modalImage');
+const modalThumbnails = document.getElementById('modalThumbnails');
+const modalClose = document.getElementById('modalClose');
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
 
 function openModal(index) {
     currentIndex = index;
@@ -81,15 +87,52 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextImage();
 });
 
+// Counter animation
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Intersection Observer for animations
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            
+            // Trigger counter animation when stats section is visible
+            if (entry.target.classList.contains('stats')) {
+                animateCounters();
+            }
         }
     });
 }, observerOptions);
 
+// Observe stats section
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+    observer.observe(statsSection);
+}
+
+// Observe project cards
 document.querySelectorAll('.project-card').forEach((card, index) => {
     card.style.opacity = '0';
     card.style.transform = 'translateY(20px)';
@@ -97,18 +140,20 @@ document.querySelectorAll('.project-card').forEach((card, index) => {
     observer.observe(card);
 });
 
-document.querySelectorAll('.masonry-item').forEach((item, index) => {
-    item.style.opacity = '0';
-    item.style.transform = 'scale(0.95)';
-    item.style.transition = `opacity 0.5s ease ${index * 0.08}s, transform 0.5s ease ${index * 0.08}s`;
-    observer.observe(item);
+// Observe spec cards
+document.querySelectorAll('.spec-card').forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+    observer.observe(card);
 });
 
+// Add visible styles
 const style = document.createElement('style');
 style.textContent = `
-    .project-card.visible, .masonry-item.visible {
+    .project-card.visible, .spec-card.visible {
         opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
+        transform: translateY(0) !important;
     }
 `;
 document.head.appendChild(style);

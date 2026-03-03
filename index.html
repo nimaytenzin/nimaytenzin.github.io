@@ -21,60 +21,145 @@
     </header>
 
     <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
         <div class="hero-content">
-            <p class="hero-subtitle">Senior Urban Planner</p>
-            <h1 class="hero-title">Nima Yoezer<br>Tenzin</h1>
-            <p class="hero-tagline">GIS Developer & Urban Planning Professional</p>
+            <p class="hero-subtitle">Senior Urban Planner & GIS Developer</p>
+            <h1 class="hero-title">Building the<br><span>Digital Infrastructure</span><br>of Bhutan</h1>
+            <p class="hero-tagline">Transforming spatial data into actionable urban solutions</p>
             <p class="hero-org">Department of Human Settlements | Geomatics & Logistics Division</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" data-target="3">0</div>
+                <div class="stat-label">National Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="8">0</div>
+                <div class="stat-label">Years of Planning</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="1">0</div>
+                <div class="stat-label">Million+ Data Points</div>
+            </div>
         </div>
     </section>
 
     <section id="about" class="section">
-        <h2 class="section-title">About</h2>
+        <h2 class="section-title">
+            <span class="number">01.</span>
+            Technical Specifications
+        </h2>
         <div class="about-content">
-            <p class="about-text">
-                I operate at the intersection of urban policy and digital innovation. As a Senior Urban Planner at the Department of Human Settlements, I transform complex spatial data into actionable urban solutions. While many planners look at maps, I build the engines that power them.
-                <br><br>
-                My work focuses on developing high-impact GIS platforms and mobile ecosystems—like Zhichar, Bhutan's national building registry—that streamline data collection and modernize national infrastructure. I am passionate about leveraging full-stack development to solve real-world logistics, ensuring that Bhutan's growth is data-driven, sustainable, and technologically advanced.
-            </p>
+            <div class="spec-card">
+                <h3>Urban Geomatics</h3>
+                <div class="spec-item">
+                    <span class="label">GIS Platforms</span>
+                    <span class="value">Zhichar</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">Spatial Analysis</span>
+                    <span class="value">PostGIS/QGIS</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">Data Visualization</span>
+                    <span class="value">MapBox/Leaflet</span>
+                </div>
+            </div>
+            <div class="spec-card">
+                <h3>Full-Stack Architecture</h3>
+                <div class="spec-item">
+                    <span class="label">Backend</span>
+                    <span class="value">Node.js/Python</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">Mobile</span>
+                    <span class="value">React Native</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">Database</span>
+                    <span class="value">PostgreSQL</span>
+                </div>
+            </div>
+            <div class="spec-card">
+                <h3>Spatial Analysis</h3>
+                <div class="spec-item">
+                    <span class="label">Remote Sensing</span>
+                    <span class="value">Landsat/Sentinel</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">CAD/GIS</span>
+                    <span class="value">AutoCAD/QGIS</span>
+                </div>
+                <div class="spec-item">
+                    <span class="label">Data Collection</span>
+                    <span class="value">ODK/FieldMaps</span>
+                </div>
+            </div>
+        </div>
+        <div class="about-text">
+            I operate at the intersection of urban policy and digital innovation. As a Senior Urban Planner at the Department of Human Settlements, I transform complex spatial data into actionable urban solutions. While many planners look at maps, I build the engines that power them—developing high-impact GIS platforms and mobile ecosystems that modernize Bhutan's national infrastructure.
         </div>
     </section>
 
     <section id="projects" class="section">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">
+            <span class="number">02.</span>
+            Featured Projects
+        </h2>
         <div class="projects-grid">
             <article class="project-card featured">
-                <h3 class="project-title">🏛️ Zhichar — The National Building Registry</h3>
+                <span class="status-badge">Live - National System</span>
+                <h3 class="project-title">Zhichar — The National Building Registry</h3>
                 <p class="project-subtitle">The Digital Backbone of Bhutan's Urban Infrastructure</p>
-                <p class="project-desc">Zhichar isn't just a database; it's a mission-critical GIS platform designed for the Department of Human Settlements. By centralizing national building data into one spatial source of truth, this project modernizes how the country manages its physical landscape. I led the development to ensure that every structure in Bhutan is accounted for, mapped, and ready for future urban growth.</p>
-                <span class="project-tag">GIS Platform</span>
-                <span class="project-tag">Spatial Data Infrastructure</span>
-                <span class="project-tag">Building Registry</span>
+                <p class="project-desc">Zhichar isn't just a database; it's a mission-critical GIS platform designed for the Department of Human Settlements. By centralizing national building data into one spatial source of truth, this project modernizes how the country manages its physical landscape.</p>
+                <div class="project-tags">
+                    <span class="project-tag">GIS Platform</span>
+                    <span class="project-tag">Spatial Data Infrastructure</span>
+                    <span class="project-tag">Building Registry</span>
+                </div>
             </article>
 
-            <article class="project-card featured">
-                <h3 class="project-title">📱 Zhichar Data Collection App</h3>
+            <article class="project-card">
+                <h3 class="project-title">Zhichar Data Collection App</h3>
                 <p class="project-subtitle">From the Field to the Cloud in Real-Time</p>
-                <p class="project-desc">Fieldwork used to be a bottleneck; now, it's a breeze. I developed this mobile and web ecosystem to empower surveyors across the country. It allows for high-precision data entry, instant validation, and seamless syncing—even in Bhutan's most remote terrain. This app eliminated manual errors and turned months of data processing into a real-time stream of insights.</p>
-                <span class="project-tag">Mobile Development</span>
-                <span class="project-tag">Real-Time Sync</span>
-                <span class="project-tag">Data Validation</span>
+                <p class="project-desc">I developed this mobile and web ecosystem to empower surveyors across the country. It allows for high-precision data entry, instant validation, and seamless syncing—even in Bhutan's most remote terrain.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Mobile Development</span>
+                    <span class="project-tag">Real-Time Sync</span>
+                    <span class="project-tag">Data Validation</span>
+                </div>
             </article>
 
-            <article class="project-card featured">
-                <h3 class="project-title">🏠 Zhidhay App</h3>
+            <article class="project-card">
+                <h3 class="project-title">Zhidhay App</h3>
                 <p class="project-subtitle">Redefining the Rental Experience</p>
-                <p class="project-desc">Managing property shouldn't be a headache for landlords or tenants. Zhidhay is a full-stack solution built to bridge the gap. From automated rental tracking to mobile-first communication, this app brings transparency and ease to property management. I focused on creating a seamless user experience that handles everything from the first lease signature to the final monthly payment.</p>
-                <span class="project-tag">Full-Stack Development</span>
-                <span class="project-tag">Mobile App</span>
-                <span class="project-tag">Property Management</span>
+                <p class="project-desc">Zhidhay is a full-stack solution built to bridge the gap between landlords and tenants. From automated rental tracking to mobile-first communication, this app brings transparency and ease to property management.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Full-Stack Development</span>
+                    <span class="project-tag">Mobile App</span>
+                    <span class="project-tag">Property Management</span>
+                </div>
             </article>
         </div>
     </section>
 
     <section id="gallery" class="section">
-        <h2 class="section-title">Gallery</h2>
-        <div class="masonry-grid" id="masonryGrid">
+        <h2 class="section-title">
+            <span class="number">03.</span>
+            Gallery
+        </h2>
+        <div class="gallery-grid" id="galleryGrid">
             <div class="masonry-item" data-index="0">
                 <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=800&fit=crop" alt="Urban Planning">
             </div>
@@ -123,7 +208,10 @@
     </div>
 
     <section id="contact" class="section">
-        <h2 class="section-title">Contact</h2>
+        <h2 class="section-title">
+            <span class="number">04.</span>
+            Let's Connect
+        </h2>
         <div class="contact-content">
             <p class="contact-text">Interested in collaborating or learning more about my work?</p>
             <a href="mailto:nimayoezertenzin@gmail.com" class="contact-email">nimayoezertenzin@gmail.com</a>
