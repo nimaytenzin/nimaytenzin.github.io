@@ -24,6 +24,7 @@ galleryImages.forEach((img, index) => {
 });
 
 // Populate modal thumbnails
+const modalThumbnails = document.getElementById('modalThumbnails');
 galleryImages.forEach((img, index) => {
     const thumb = document.createElement('div');
     thumb.className = 'modal-thumb';
@@ -35,7 +36,6 @@ galleryImages.forEach((img, index) => {
 let currentIndex = 0;
 const modal = document.getElementById('modal');
 const modalImage = document.getElementById('modalImage');
-const modalThumbnails = document.getElementById('modalThumbnails');
 const modalClose = document.getElementById('modalClose');
 const modalPrev = document.getElementById('modalPrev');
 const modalNext = document.getElementById('modalNext');
@@ -87,50 +87,15 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextImage();
 });
 
-// Counter animation
-function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const updateCounter = () => {
-            current += step;
-            if (current < target) {
-                counter.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target;
-            }
-        };
-        
-        updateCounter();
-    });
-}
-
 // Intersection Observer for animations
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            
-            // Trigger counter animation when stats section is visible
-            if (entry.target.classList.contains('stats')) {
-                animateCounters();
-            }
         }
     });
 }, observerOptions);
-
-// Observe stats section
-const statsSection = document.querySelector('.stats');
-if (statsSection) {
-    observer.observe(statsSection);
-}
 
 // Observe project cards
 document.querySelectorAll('.project-card').forEach((card, index) => {
