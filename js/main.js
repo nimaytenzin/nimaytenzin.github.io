@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(card);
     });
 
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.9)';
+        item.style.transition = `opacity 0.5s ease ${index * 0.05}s, transform 0.5s ease ${index * 0.05}s`;
+        observer.observe(item);
+    });
+
     document.body.classList.add('loaded');
 
     const style = document.createElement('style');
@@ -45,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .project-card.visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
+        }
+        .gallery-item.visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
         }
     `;
     document.head.appendChild(style);
