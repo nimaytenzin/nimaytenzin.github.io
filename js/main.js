@@ -13,34 +13,30 @@ const galleryImages = [
     { src: 'https://images.unsplash.com/photo-1479839672679-a455b180eda7?w=1200&h=1400&fit=crop', thumb: 'https://images.unsplash.com/photo-1479839672679-a455b180eda7?w=120&h=120&fit=crop', alt: 'Architecture' }
 ];
 
-// Populate gallery
+// Gallery + modal are optional (older layout). Skip if not present.
 const galleryGrid = document.getElementById('galleryGrid');
-galleryImages.forEach((img, index) => {
-    const item = document.createElement('div');
-    item.className = 'gallery-item';
-    item.innerHTML = `<img src="${img.src.replace('w=1200', 'w=600').replace('h=1600', 'h=800').replace('h=1800', 'h=900').replace('h=1400', 'h=700')}" alt="${img.alt}">`;
-    item.addEventListener('click', () => openModal(index));
-    galleryGrid.appendChild(item);
-});
-
-// Populate modal thumbnails
-const modalThumbnails = document.getElementById('modalThumbnails');
-galleryImages.forEach((img, index) => {
-    const thumb = document.createElement('div');
-    thumb.className = 'modal-thumb';
-    thumb.innerHTML = `<img src="${img.thumb}" alt="${img.alt}">`;
-    thumb.addEventListener('click', () => openModal(index));
-    modalThumbnails.appendChild(thumb);
-});
-
-let currentIndex = 0;
 const modal = document.getElementById('modal');
+const modalThumbnails = document.getElementById('modalThumbnails');
 const modalImage = document.getElementById('modalImage');
 const modalClose = document.getElementById('modalClose');
 const modalPrev = document.getElementById('modalPrev');
 const modalNext = document.getElementById('modalNext');
 
+let currentIndex = 0;
+
+function updateModal() {
+    if (!modalImage) return;
+    const img = galleryImages[currentIndex];
+    modalImage.src = img.src;
+    modalImage.alt = img.alt;
+
+    document.querySelectorAll('.modal-thumb').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === currentIndex);
+    });
+}
+
 function openModal(index) {
+    if (!modal) return;
     currentIndex = index;
     updateModal();
     modal.classList.add('active');
@@ -48,18 +44,9 @@ function openModal(index) {
 }
 
 function closeModal() {
+    if (!modal) return;
     modal.classList.remove('active');
     document.body.style.overflow = '';
-}
-
-function updateModal() {
-    const img = galleryImages[currentIndex];
-    modalImage.src = img.src;
-    modalImage.alt = img.alt;
-    
-    document.querySelectorAll('.modal-thumb').forEach((thumb, i) => {
-        thumb.classList.toggle('active', i === currentIndex);
-    });
 }
 
 function prevImage() {
@@ -72,16 +59,38 @@ function nextImage() {
     updateModal();
 }
 
-modalClose.addEventListener('click', closeModal);
-modalPrev.addEventListener('click', prevImage);
-modalNext.addEventListener('click', nextImage);
+if (galleryGrid) {
+    galleryImages.forEach((img, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.innerHTML = `<img src="${img.src.replace('w=1200', 'w=600').replace('h=1600', 'h=800').replace('h=1800', 'h=900').replace('h=1400', 'h=700')}" alt="${img.alt}">`;
+        item.addEventListener('click', () => openModal(index));
+        galleryGrid.appendChild(item);
+    });
+}
 
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-});
+if (modalThumbnails) {
+    galleryImages.forEach((img, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'modal-thumb';
+        thumb.innerHTML = `<img src="${img.thumb}" alt="${img.alt}">`;
+        thumb.addEventListener('click', () => openModal(index));
+        modalThumbnails.appendChild(thumb);
+    });
+}
+
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (modalPrev) modalPrev.addEventListener('click', prevImage);
+if (modalNext) modalNext.addEventListener('click', nextImage);
+
+if (modal) {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+}
 
 document.addEventListener('keydown', (e) => {
-    if (!modal.classList.contains('active')) return;
+    if (!modal || !modal.classList.contains('active')) return;
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowLeft') prevImage();
     if (e.key === 'ArrowRight') nextImage();

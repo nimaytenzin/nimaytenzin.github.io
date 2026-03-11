@@ -1,225 +1,572 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nima Yoezer Tenzin | Senior Urban Planner & GIS Developer</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Nima Yoezer Tenzin | Urban Systems & Geospatial Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-paper: #fcfcf9;
+            --ink-black: #121212;
+            --blueprint-blue: #0047ff;
+            --muted-grey: #666666;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--ink-black);
+            overflow-x: hidden;
+        }
+
+        .serif { font-family: 'Cormorant Garamond', serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Custom Blueprint Grid Background */
+        .blueprint-bg {
+            background-image: 
+                linear-gradient(to right, rgba(0, 71, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 71, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Sophisticated Animation */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+
+        .image-mask {
+            clip-path: inset(0 0 0 0);
+            transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover .image-mask {
+            clip-path: inset(10px 10px 10px 10px);
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .link-underline {
+            position: relative;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--blueprint-blue);
+            transition: width 0.4s ease;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--blueprint-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        /* Gallery */
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .gallery-left {
+            display: grid;
+            gap: 18px;
+        }
+
+        .gallery-right {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 18px;
+        }
+
+        .gallery-right-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-layout {
+                grid-template-columns: 1fr;
+            }
+            .gallery-right-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px)  {
+            .gallery-layout,
+            .gallery-left,
+            .gallery-right,
+            .gallery-right-top {
+                gap: 14px;
+            }
+            .gallery-right-top {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gallery-tile {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(0, 71, 255, 0.14);
+            background:
+                radial-gradient(1200px 600px at -10% -20%, rgba(0, 71, 255, 0.14), transparent 55%),
+                linear-gradient(180deg, rgba(0, 71, 255, 0.05), transparent 60%);
+            transition:
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease,
+                box-shadow 0.45s ease;
+            transform: translateY(8px);
+            opacity: 0;
+            animation: galleryIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            /* Equal-height frames across portrait + landscape */
+            height: clamp(220px, 28vw, 420px);
+        }
+
+        .gallery-tile.d1 { animation-delay: 0.08s; }
+        .gallery-tile.d2 { animation-delay: 0.16s; }
+        .gallery-tile.d3 { animation-delay: 0.24s; }
+        .gallery-tile.d4 { animation-delay: 0.32s; }
+        .gallery-tile.d5 { animation-delay: 0.40s; }
+
+        @keyframes galleryIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-tile:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 71, 255, 0.42);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.10);
+        }
+
+        .gallery-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.02) contrast(1.03);
+            transform: scale(1.03);
+            transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+        }
+        .gallery-tile:hover img {
+            transform: scale(1.10);
+            filter: saturate(1.08) contrast(1.05);
+        }
+
+        .gallery-tile::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(600px 300px at 30% 15%, rgba(252, 252, 249, 0.25), transparent 55%),
+                linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.22));
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        /* Portrait/landscape classes kept for semantics (height is uniform) */
+
+        .gallery-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 10px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(18, 18, 18, 0.72);
+            background: rgba(252, 252, 249, 0.9);
+            border: 1px solid rgba(0, 71, 255, 0.18);
+            padding: 6px 10px;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            left: 14px;
+            bottom: 12px;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(252, 252, 249, 0.92);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Lightbox (dialog) */
+        .lightbox {
+            width: min(1100px, calc(100vw - 2rem));
+            border: 1px solid rgba(0, 71, 255, 0.2);
+            padding: 0;
+            background: rgba(252, 252, 249, 0.92);
+            backdrop-filter: blur(12px);
+        }
+        .lightbox::backdrop {
+            background: rgba(0, 0, 0, 0.55);
+        }
+        .lightbox-shell {
+            position: relative;
+            padding: 1rem;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            border: 1px solid rgba(0, 71, 255, 0.25);
+            background: rgba(252, 252, 249, 0.9);
+            padding: 8px 10px;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(18, 18, 18, 0.75);
+        }
+        .lightbox-close:hover { border-color: rgba(0, 71, 255, 0.45); }
+        .lightbox-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: min(78vh, 820px);
+            object-fit: contain;
+            border: 1px solid rgba(0, 71, 255, 0.14);
+        }
+        .lightbox-meta {
+            margin-top: 10px;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(102, 102, 102, 0.9);
+        }
+    </style>
 </head>
-<body>
-    <header class="header">
-        <a href="#" class="logo">NT</a>
-        <nav class="nav">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#gallery" class="nav-link">Gallery</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </nav>
-    </header>
+<body class="blueprint-bg">
+    <div class="custom-cursor hidden md:block" id="cursor"></div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-subtitle">Senior Urban Planner & GIS Developer</p>
-            <h1 class="hero-title">Nima Yoezer<br>Tenzin</h1>
-            <p class="hero-tagline">Building the Digital Infrastructure of Bhutan</p>
-            <p class="hero-org">Department of Human Settlements · Geomatics & Logistics Division</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-            </div>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center text-white">
+        <a href="#" class="text-xl font-semibold tracking-tighter mono">NYT.08</a>
+        <div class="flex space-x-12 text-xs uppercase tracking-[0.2em] font-medium">
+            <a href="#about" class="hover:opacity-60 transition-opacity">Philosophy</a>
+            <a href="#projects" class="hover:opacity-60 transition-opacity">Systems</a>
+            <a href="#stack" class="hover:opacity-60 transition-opacity">Stack</a>
         </div>
-        <div class="scroll-indicator">
-            <span></span>
+    </nav>
+
+    <!-- Side Label -->
+    <aside class="fixed right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center space-y-8 z-40">
+        <span class="vertical-text text-[10px] uppercase tracking-[0.5em] text-muted-grey mono">Bhutan National Infrastructure</span>
+        <div class="w-px h-24 bg-blue-100"></div>
+    </aside>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex flex-col justify-center px-8 lg:px-24">
+            <div class="max-w-6xl">
+                <p class="reveal stagger-1 mono text-blue-600 text-sm mb-8 font-medium">/ Senior Urban Planner & GIS Developer</p>
+                <h1 class="reveal stagger-2 serif text-7xl md:text-[9rem] leading-[0.85] tracking-tight mb-12">
+                    Spatial <span class="italic font-light">Ecology</span> & Digital <span class="font-light">Twins.</span>
+                </h1>
+                <div class="reveal stagger-3 grid md:grid-cols-2 gap-12 items-end">
+                    <p class="text-xl text-muted-grey font-light leading-relaxed max-w-md">
+                        I bridge the gap between traditional urban planning and modern technology to build the digital pipelines of a resilient Bhutan. Instead of just mapping zones, I develop the intelligent systems that automate governance—from secure, data-driven building registries to real-time networks that coordinate emergency shelters during a crisis. My work ensures that our urban growth isn't just fast, but smart and sustainable, creating a digital foundation where data informs every decision to better serve our citizens.                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#projects" class="group flex items-center space-x-3 text-sm uppercase tracking-widest font-semibold text-blue-600">
+                            <span>View Archive</span>
+                            <div class="w-12 h-px bg-blue-600 group-hover:w-20 transition-all"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The "Why" -->
+        <section id="about" class="py-40 px-8 lg:px-24 bg-white border-y border-blue-50">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="serif text-5xl italic mb-12">"Software is the new infrastructure of the city."</h2>
+                <div class="h-24 w-px bg-blue-600 mx-auto mb-12"></div>
+                <p class="text-lg text-muted-grey font-light leading-loose">
+                    Operating at the Department of Human Settlements, I don't just plan zones; I build the digital pipelines that automate urban governance. From PostGIS-backed building registries to real-time emergency shelter networks, my work is about creating a resilient, data-driven Bhutan.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects - The "Gallery" -->
+        <section id="projects" class="py-40 px-8 lg:px-24">
+            <div class="mb-24 flex justify-between items-end">
+                <h2 class="serif text-7xl">Systems.</h2>
+                <span class="mono text-xs text-muted-grey">[ Selected Works 2024-2026 ]</span>
+            </div>
+
+            <div class="space-y-40">
+                <!-- Project 01 -->
+                <div class="project-card grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 bg-blue-50 aspect-video relative overflow-hidden group">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="map" class="w-64 h-64 text-blue-600"></i>
+                        </div>
+                        <div class="image-mask absolute inset-0 border-[1px] border-blue-200"></div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <span class="mono text-blue-600 text-xs font-bold mb-4 block">01 / CORE SYSTEM</span>
+                        <h3 class="serif text-5xl mb-6">Unified Spatial Ecosystem</h3>
+                        <p class="text-muted-grey font-light mb-8 leading-relaxed">
+                            A multi-layered GIS environment integrating national spatial plans, building registries, and emergency infrastructure. Designed for high-availability and national disaster resilience.
+                        </p>
+                        <div class="flex flex-wrap gap-4 text-[10px] mono uppercase tracking-widest font-bold opacity-60">
+                            <span>NestJS</span>
+                            <span>PostGIS</span>
+                            <span>Angular</span>
+                            <span>OpenLayers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 02 & 03 Grid -->
+                <div class="grid md:grid-cols-2 gap-24">
+                    <div class="project-card">
+                        <div class="bg-blue-50 aspect-square mb-8 relative overflow-hidden">
+                             <div class="absolute inset-0 flex items-center justify-center opacity-5">
+                                <i data-lucide="home" class="w-32 h-32 text-blue-600"></i>
+                            </div>
+                        </div>
+                        <h4 class="serif text-3xl mb-4">Zhichar Registry</h4>
+                        <p class="text-muted-grey font-light text-sm mb-6">Bhutan's definitive source of truth for building data and urban settlement tracking.</p>
+                        <a href="https://zhichar.ddnsfree.com/" target="_blank" class="link-underline mono text-[10px] font-bold tracking-widest uppercase text-blue-600">Launch Terminal</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="bg-blue-50 aspect-square mb-8 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-5">
+                                <i data-lucide="leaf" class="w-32 h-32 text-blue-600"></i>
+                            </div>
+                        </div>
+                        <h4 class="serif text-3xl mb-4">Trees GMC</h4>
+                        <p class="text-muted-grey font-light text-sm mb-6">Ecological management system tracking urban green canopy and forestry growth metrics.</p>
+                        <a href="https://treesgmc.ddnsfree.com" target="_blank" class="link-underline mono text-[10px] font-bold tracking-widest uppercase text-blue-600">View Ecosystem</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Stack -->
+        <section id="stack" class="py-40 px-8 lg:px-24 bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    <div class="lg:col-span-4">
+                        <h2 class="serif text-6xl">The <br><span class="italic opacity-70">Architecture</span></h2>
+                    </div>
+                    <div class="lg:col-span-8 grid md:grid-cols-3 gap-12">
+                        <div>
+                            <h5 class="mono text-xs uppercase tracking-[0.3em] font-bold opacity-50 mb-8 underline decoration-white/20 underline-offset-8">Backend & Analytics</h5>
+                            <ul class="space-y-3 serif text-xl md:text-2xl font-light">
+                                <li>NestJS (Node.js) microservices</li>
+                                <li>Flask / FastAPI analytics APIs</li>
+                                <li>GeoPandas · Shapely · PyProj</li>
+                                <li>PostGIS spatial analysis</li>
+                                <li>Tippecanoe vector tiling</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="mono text-xs uppercase tracking-[0.3em] font-bold opacity-50 mb-8 underline decoration-white/20 underline-offset-8">Data & Storage</h5>
+                            <ul class="space-y-3 serif text-xl md:text-2xl font-light">
+                                <li>PostgreSQL + PostGIS core DB</li>
+                                <li>Redis realtime & caching</li>
+                                <li>MongoDB for schemaless geo</li>
+                                <li>AWS S3 / MinIO tiles & rasters</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="mono text-xs uppercase tracking-[0.3em] font-bold opacity-50 mb-8 underline decoration-white/20 underline-offset-8">DevOps & Frontend</h5>
+                            <ul class="space-y-3 serif text-xl md:text-2xl font-light">
+                                <li>Docker · Kubernetes · Nginx</li>
+                                <li>GitHub Actions CI/CD</li>
+                                <li>Prometheus · Grafana</li>
+                                <li>Angular & React Native</li>
+                                <li>Mapbox GL JS · OpenLayers</li>
+                                <li>QGIS & ArcGIS Pro</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-40 px-8 lg:px-24 text-center">
+            <span class="mono text-[10px] uppercase tracking-[0.5em] text-blue-600 font-bold mb-12 block">Inquiry Channel</span>
+            <h2 class="serif text-5xl md:text-8xl mb-12 italic">Architecting Resilience.</h2>
+            <a href="mailto:nimayoezertenzin@gmail.com" class="serif text-3xl md:text-5xl hover:text-blue-600 transition-colors link-underline">nimayoezertenzin@gmail.com</a>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="py-32 md:py-40 px-8 lg:px-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+                    <div>
+                        <span class="mono text-[10px] uppercase tracking-[0.5em] text-blue-600 font-bold mb-6 block">Biking / Photo Collection</span>
+                        <h2 class="serif text-6xl md:text-7xl leading-[0.9]">Roadside <span class="italic font-light">Light</span> & Terrain.</h2>
+                    </div>
+                    <p class="text-muted-grey font-light leading-relaxed max-w-xl">
+                        A personal archive from rides, weather, and the slow geometry of roads. Tap a frame to open it in a focused lightbox.
+                    </p>
+                </div>
+
+                <div class="gallery-layout">
+                    <div class="gallery-left">
+                        <button
+                            class="gallery-tile portrait d1"
+                            data-lightbox-src="images/1.jpg"
+                            data-lightbox-alt="Under the shade on way from Zhemgang to Gelephu (images/1.jpg)">
+                            <img src="images/1.jpg" alt="Under the shade on way from Zhemgang to Gelephu" loading="lazy">
+                            <span class="gallery-tag mono">01</span>
+                            <span class="gallery-caption mono">Under the shade — Zhemgang → Gelephu</span>
+                        </button>
+                        <button
+                            class="gallery-tile portrait d2"
+                            data-lightbox-src="images/4.jpg"
+                            data-lightbox-alt="Motocamping along Pachu (images/4.jpg)">
+                            <img src="images/4.jpg" alt="Motocamping along Pachu" loading="lazy">
+                            <span class="gallery-tag mono">04</span>
+                            <span class="gallery-caption mono">Motocamping along Pachu</span>
+                        </button>
+                    </div>
+
+                    <div class="gallery-right">
+                        <div class="gallery-right-top">
+                            <button
+                                class="gallery-tile portrait d3"
+                                data-lightbox-src="images/2.jpg"
+                                data-lightbox-alt="Tashichho Dzong viewpoint (images/2.jpg)">
+                                <img src="images/2.jpg" alt="Tashichho Dzong viewpoint" loading="lazy">
+                                <span class="gallery-tag mono">02</span>
+                                <span class="gallery-caption mono">Tashichho Dzong viewpoint</span>
+                            </button>
+                            <button
+                                class="gallery-tile portrait d4"
+                                data-lightbox-src="images/3.jpg"
+                                data-lightbox-alt="My bike and Paro Dzong (images/3.jpg)">
+                                <img src="images/3.jpg" alt="My bike and Paro Dzong" loading="lazy">
+                                <span class="gallery-tag mono">03</span>
+                                <span class="gallery-caption mono">My bike & Paro Dzong</span>
+                            </button>
+                        </div>
+                        <button
+                            class="gallery-tile landscape d5"
+                            data-lightbox-src="images/5.jpg"
+                            data-lightbox-alt="Early morning sunrise at Dochula (images/5.jpg)">
+                            <img src="images/5.jpg" alt="Early morning sunrise at Dochula" loading="lazy">
+                            <span class="gallery-tag mono">05</span>
+                            <span class="gallery-caption mono">Early morning sunrise at Dochula</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="p-8 border-t border-blue-50 text-[10px] mono uppercase tracking-widest text-muted-grey flex justify-between">
+        <span>© 2026 N.Y. Tenzin</span>
+        <div class="flex space-x-6">
+            <a href="#" class="hover:text-blue-600">LinkedIn</a>
+            <a href="#" class="hover:text-blue-600">GIS Repo</a>
         </div>
-    </section>
-
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">3+</div>
-                <div class="stat-label">National Projects</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">8+</div>
-                <div class="stat-label">Years of Planning</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">1M+</div>
-                <div class="stat-label">Data Points Managed</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <h2 class="section-title">
-            <span class="number">01.</span>
-            Technical Specifications
-        </h2>
-        <div class="about-content">
-            <div class="spec-card">
-                <h3>Urban Geomatics</h3>
-                <div class="spec-item">
-                    <span class="label">GIS Platforms</span>
-                    <span class="value">Zhichar</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Spatial Analysis</span>
-                    <span class="value">PostGIS/QGIS</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Data Visualization</span>
-                    <span class="value">MapBox/Leaflet</span>
-                </div>
-            </div>
-            <div class="spec-card">
-                <h3>Full-Stack Architecture</h3>
-                <div class="spec-item">
-                    <span class="label">Backend</span>
-                    <span class="value">Node.js/Python</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Mobile</span>
-                    <span class="value">React Native</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Database</span>
-                    <span class="value">PostgreSQL</span>
-                </div>
-            </div>
-            <div class="spec-card">
-                <h3>Spatial Analysis</h3>
-                <div class="spec-item">
-                    <span class="label">Remote Sensing</span>
-                    <span class="value">Landsat/Sentinel</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">CAD/GIS</span>
-                    <span class="value">AutoCAD/QGIS</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Data Collection</span>
-                    <span class="value">ODK/FieldMaps</span>
-                </div>
-            </div>
-        </div>
-        <div class="about-text">
-            I operate at the intersection of urban policy and digital innovation. As a Senior Urban Planner at the Department of Human Settlements, I transform complex spatial data into actionable urban solutions. While many planners look at maps, I build the engines that power them—developing high-impact GIS platforms and mobile ecosystems that modernize Bhutan's national infrastructure.
-        </div>
-    </section>
-
-    <section id="projects" class="section">
-        <h2 class="section-title">
-            <span class="number">02.</span>
-            Featured Projects
-        </h2>
-        <div class="projects-grid">
-            <article class="project-card featured">
-                <span class="status-badge">Live - National System</span>
-                <h3 class="project-title">Zhichar — The National Building Registry</h3>
-                <p class="project-subtitle">The Digital Backbone of Bhutan's Urban Infrastructure</p>
-                <p class="project-desc">Zhichar isn't just a database; it's a mission-critical GIS platform designed for the Department of Human Settlements. By centralizing national building data into one spatial source of truth, this project modernizes how the country manages its physical landscape.</p>
-                <div class="project-tags">
-                    <span class="project-tag">GIS Platform</span>
-                    <span class="project-tag">Spatial Data Infrastructure</span>
-                    <span class="project-tag">Building Registry</span>
-                </div>
-            </article>
-
-            <article class="project-card">
-                <h3 class="project-title">Zhichar Data Collection App</h3>
-                <p class="project-subtitle">From the Field to the Cloud in Real-Time</p>
-                <p class="project-desc">I developed this mobile and web ecosystem to empower surveyors across the country. It allows for high-precision data entry, instant validation, and seamless syncing—even in Bhutan's most remote terrain.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Mobile Development</span>
-                    <span class="project-tag">Real-Time Sync</span>
-                    <span class="project-tag">Data Validation</span>
-                </div>
-            </article>
-
-            <article class="project-card">
-                <h3 class="project-title">Zhidhay App</h3>
-                <p class="project-subtitle">Redefining the Rental Experience</p>
-                <p class="project-desc">Zhidhay is a full-stack solution built to bridge the gap between landlords and tenants. From automated rental tracking to mobile-first communication, this app brings transparency and ease to property management.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Full-Stack Development</span>
-                    <span class="project-tag">Mobile App</span>
-                    <span class="project-tag">Property Management</span>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section id="gallery" class="section">
-        <h2 class="section-title">
-            <span class="number">03.</span>
-            Gallery
-        </h2>
-        <div class="gallery-grid" id="galleryGrid">
-            <div class="masonry-item" data-index="0">
-                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=800&fit=crop" alt="Urban Planning">
-            </div>
-            <div class="masonry-item" data-index="1">
-                <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop" alt="City View">
-            </div>
-            <div class="masonry-item" data-index="2">
-                <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&h=900&fit=crop" alt="Cityscape">
-            </div>
-            <div class="masonry-item" data-index="3">
-                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=400&fit=crop" alt="Buildings">
-            </div>
-            <div class="masonry-item" data-index="4">
-                <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=600&h=700&fit=crop" alt="Architecture">
-            </div>
-            <div class="masonry-item" data-index="5">
-                <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=400&fit=crop" alt="Urban">
-            </div>
-            <div class="masonry-item" data-index="6">
-                <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=600&h=800&fit=crop" alt="City Life">
-            </div>
-            <div class="masonry-item" data-index="7">
-                <img src="https://images.unsplash.com/photo-1465447142348-e9952c393450?w=600&h=400&fit=crop" alt="Skyline">
-            </div>
-            <div class="masonry-item" data-index="8">
-                <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&h=600&fit=crop" alt="Map">
-            </div>
-            <div class="masonry-item" data-index="9">
-                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=900&fit=crop" alt="Planning">
-            </div>
-            <div class="masonry-item" data-index="10">
-                <img src="https://images.unsplash.com/photo-1512921514218-52d31e400e1b?w=600&h=400&fit=crop" alt="City View">
-            </div>
-            <div class="masonry-item" data-index="11">
-                <img src="https://images.unsplash.com/photo-1479839672679-a455b180eda7?w=600&h=700&fit=crop" alt="Architecture">
-            </div>
-        </div>
-    </section>
-
-    <div class="modal" id="modal">
-        <button class="modal-close" id="modalClose"></button>
-        <button class="modal-nav prev" id="modalPrev"></button>
-        <button class="modal-nav next" id="modalNext"></button>
-        <img src="" alt="" class="modal-image" id="modalImage">
-        <div class="modal-thumbnails" id="modalThumbnails"></div>
-    </div>
-
-    <section id="contact" class="section">
-        <h2 class="section-title">
-            <span class="number">04.</span>
-            Let's Connect
-        </h2>
-        <div class="contact-content">
-            <p class="contact-text">Interested in collaborating or learning more about my work?</p>
-            <a href="mailto:nimayoezertenzin@gmail.com" class="contact-email">nimayoezertenzin@gmail.com</a>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p class="footer-text">&copy; 2026 Nima Yoezer Tenzin. All rights reserved.</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursor.style.transform = 'scale(0.8)');
+        document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, h2, h3').forEach(el => {
+            el.classList.add('opacity-0');
+            observer.observe(el);
+        });
+
+        // Lightbox for local gallery images
+        const lightbox = document.createElement('dialog');
+        lightbox.className = 'lightbox';
+        lightbox.id = 'lightbox';
+        lightbox.innerHTML = `
+            <form method="dialog" class="lightbox-shell">
+                <button class="lightbox-close mono" aria-label="Close">ESC</button>
+                <img class="lightbox-img" alt="" />
+                <div class="lightbox-meta mono" aria-hidden="true">Click outside or press ESC to close</div>
+            </form>
+        `;
+        document.body.appendChild(lightbox);
+
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        document.querySelectorAll('[data-lightbox-src]').forEach(tile => {
+            tile.addEventListener('click', () => {
+                const src = tile.getAttribute('data-lightbox-src');
+                const alt = tile.getAttribute('data-lightbox-alt') || '';
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                if (typeof lightbox.showModal === 'function') lightbox.showModal();
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            const shell = lightbox.querySelector('.lightbox-shell');
+            if (!shell) return;
+            const rect = shell.getBoundingClientRect();
+            const inDialog = rect.top <= e.clientY && e.clientY <= rect.bottom && rect.left <= e.clientX && e.clientX <= rect.right;
+            if (!inDialog) lightbox.close();
+        });
+    </script>
 </body>
 </html>
